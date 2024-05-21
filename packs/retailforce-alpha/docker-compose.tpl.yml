@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  retailforce1:
+    image: {{ image.repository }}:{{ image.tag }}    
+    volumes:
+      - /retailforce/8101-data:/mnt/fiscal-service-data
+      - /retailforce/8101-config:/mnt/fiscal-service-config
+    networks:
+      - app
+      - mon
+    ports:
+      - "8101:7678"
+    deploy:
+      labels:
+        - "swarm-sync.managed=true"
+        - "swarm-sync.image-pattern={{ image.tag_pattern }}"
+      restart_policy:
+        condition: on-failure
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.worker == true
+networks:
+  mon:
+    external: true  
+  app:
+    external: true

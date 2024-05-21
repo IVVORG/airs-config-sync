@@ -1,0 +1,75 @@
+---
+packs:
+  - pack: bp3-euro
+    values:
+      image:
+        repository: untillpro/airs-bp
+        tag: v0.202405130306.1
+        auto: true
+      router:
+        domain: air.untill.com
+        resellerportal: reseller.untill.com
+        paymentsportal: payments.untill.com
+        deeplink: link.air.untill.com
+      args:
+        scyllahosts: "db-node-1,db-node-2,db-node-3"
+        keyspaces: "{ 'class': 'NetworkTopologyStrategy', 'dc1': 2, 'dc2': 1}"
+        federation: "https://air.untill.com"
+        smtpport: "587"
+        smtphost: "smtp.gmail.com"
+        smtpusername: "mailto:no-reply@dev.untill.com"
+        smtpfrom: "no-reply@untillair.com"
+        chargebee:
+          aircluster: "air"
+          discarded_airclusters: "__unspecified"
+          sitename: "untillair"
+        adyen:
+          username: "ws_094559@Scope.Company_UnTill_Payments"
+          password_secret: "adyen_user_password"
+          api_key_secret: "adyen_api_key"
+          legal_entity_management_api_url: "https://kyc-live.adyen.com/lem/v2"
+          configuration_api_url: "https://balanceplatform-api-live.adyen.com/bcl/v2"
+          terminal_api_url: "https://terminal-api-live.adyen.com"
+          terminal_api_key_secret: "adyen_terminal_api_key"
+          management_api_url: "https://management-live.adyen.com/v1"
+          onboarding_theme: "ONBT4224M223224R5JVDR8942R3XVQ"
+          checkout_api_url: "https://checkout-live.adyen.com/v70"
+          transfer_api_url: "https://balanceplatform-api-live.adyen.com/btl/v3"
+          agent_wsid: "140737488486400"
+          report_username: "report_284205@BalancePlatform.UnTillAIR"
+          report_pwd_secret: "adyen_report_pwd"
+          tap_2_pay_api_url: "https://checkout-live.adyen.com/checkout/possdk/v68/sessions"
+        untillpayments:
+          email_for_direct_customers: "paymentsrequest@untill.com"
+          balance_account: "BA3222Z223226J5K7DNWBCVT2"
+          direct_reseller_wsid: "140737488486454"
+      created: 202305281322
+  - pack: backoffice2-euro
+    values:
+      image:
+        repository: untillpro/airc-backoffice2
+        tag: v0.202405130311.1
+        auto: true
+      created: 202305141318
+  - pack: resellerportal-euro
+    values:
+      image:
+        repository: untillpro/resellerportal-web
+        tag: v0.202405130357.1
+        auto: true
+      created: 202305141332
+  - pack: paymentsportal-euro
+    values:
+      image:
+        repository: untillpro/paymentsportal-web
+        tag: v0.202405130359.1
+        auto: true
+      created: 202305141323
+  - pack: deeplink-euro
+    values:
+      image:
+        repository: untillpro/deeplink
+        tag: release
+        auto: true
+      created: 202401041325
+      

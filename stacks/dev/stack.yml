@@ -1,0 +1,81 @@
+---
+packs:
+  - pack: bp3-alpha
+    values:
+      image:
+        repository: untillpro/airs-bp
+        tag: alpha
+        auto: true
+      router:
+        domain: dev.air.untill.com
+        resellerportal: reseller.dev.air.untill.com
+        paymentsportal: payments.dev.air.untill.com
+        deeplink: link.dev.air.untill.com
+      args:
+        scyllahosts: 172.17.0.1
+        keyspaces: "{'class': 'SimpleStrategy', 'replication_factor': '1'}"
+        federation: "https://dev.air.untill.com"
+        smtpport: "587"
+        smtphost: "smtp.gmail.com"
+        smtpusername: "mailto:no-reply@dev.untill.com"
+        smtpfrom: "no-reply@untillair.com"
+        chargebee:
+          aircluster: "dev"
+          discarded_airclusters: "__unspecified"
+          sitename: "untillair-test"
+        adyen:
+          username: "ws_468644@Scope.UnTill"
+          password_secret: "adyen_user_password"
+          api_key_secret: "adyen_api_key"
+          legal_entity_management_api_url: "https://kyc-test.adyen.com/lem/v2"
+          configuration_api_url: "https://balanceplatform-api-test.adyen.com/bcl/v2"
+          terminal_api_url: "https://terminal-api-test.adyen.com"
+          terminal_api_key_secret: "adyen_terminal_api_key"
+          management_api_url: "https://management-test.adyen.com/v1"
+          onboarding_theme: "ONBT4222Z223222P5HS9P3R8FQ3SW2"
+          checkout_api_url: "https://checkout-test.adyen.com/v70"
+          transfer_api_url: "https://balanceplatform-api-test.adyen.com/btl/v3"
+          agent_wsid: "140737488486404"
+          report_username: "report_611560@BalancePlatform.UnTill"
+          report_pwd_secret: "adyen_report_pwd"
+          tap_2_pay_api_url: "https://checkout-test.adyen.com/checkout/possdk/v68/sessions"
+        untillpayments:
+          email_for_direct_customers: "untilldemo@gmail.com"
+          balance_account: "BA32272223222C5GJVMG39ZFH"
+          direct_reseller_wsid: "140737488486410"
+      created: 202405210709
+  - pack: backoffice2
+    values:
+      image:
+        repository: untillpro/airc-backoffice2
+        tag: alpha
+        auto: true
+      created: 202405171015
+  - pack: resellerportal
+    values:
+      image:
+        repository: untillpro/resellerportal-web
+        tag: alpha
+        auto: true
+      created: 202405161152
+  - pack: paymentsportal
+    values:
+      image:
+        repository: untillpro/paymentsportal-web
+        tag: alpha
+        auto: true
+      created: 202405161153
+  - pack: deeplink
+    values:
+      image:
+        repository: untillpro/deeplink
+        tag: alpha
+        auto: true
+      created: 202403201401
+  - pack: retailforce-alpha
+    values:
+      image:
+        repository: retailforce/trusted-fiscal-service
+        tag: latest
+        auto: true
+      created: 202401311109

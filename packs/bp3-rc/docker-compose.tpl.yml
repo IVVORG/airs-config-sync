@@ -1,0 +1,149 @@
+version: '3.3'
+
+services:
+  airs-bp3:
+    image: {{ image.repository }}:{{ image.tag }}
+    networks:
+      - host
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+      - target: 443
+        published: 443
+        protocol: tcp
+        mode: host
+      - target: 8000
+        published: 8000
+        protocol: tcp
+        mode: host
+    command:
+      - "/app/airs-bp"
+      - "--vvm-port"
+      - "443"
+      - "--router-http01-challenge-hosts"
+      - "{{ router.domain }},{{ router.resellerportal }},{{ router.paymentsportal }},{{ router.deeplink }}"
+      - "--router-route-rewrite"
+      - "/grafana=http://127.0.0.1:3000"
+      - "--router-route-rewrite"
+      - "/prometheus=http://127.0.0.1:9090"
+      - "--router-route-rewrite"
+      - "/alertmanager=http://127.0.0.1:9093"
+      - "--router-route-domains"
+      - "{{ router.resellerportal }}=http://127.0.0.1:3034,{{ router.paymentsportal }}=http://127.0.0.1:9095,{{ router.deeplink }}=http://127.0.0.1:9097"
+      - "--router-route-default"
+      - "http://127.0.0.1:3030"
+      - "--router-write-timeout" 
+      - "0" 
+      - "--v"
+      - "--use-cas"
+      - "--cas-hosts"
+      - "{{ args.scyllahosts }}"
+      - "--cas-port"
+      - "9042"
+      - "--cas-user"
+      - "cassandra"
+      - "--cas-pwd"
+      - "cassandra"
+      - "--cas-keyspace-with-replication"
+      - "{{ args.keyspaces }}"
+      - "--dummy"
+      - "{{ args.dummy }}"
+      - "--federation-url"
+      - "{{ args.federation }}"
+      - "--chargebee-site-name" 
+      - "{{ args.chargebee.sitename }}"
+      - "--chargebee-key-secret"
+      - "chargebee_key"
+      - "--chargebee-aircluster"
+      - "{{ args.chargebee.aircluster }}"
+      - "--chargebee-discarded-airclusters"
+      - "{{ args.chargebee.discarded_airclusters }}"
+      - "--smtp-port"
+      - "{{ args.smtpport }}"
+      - "--smtp-host"
+      - "{{ args.smtphost }}"
+      - "--smtp-username"
+      - "{{ args.smtpusername }}"
+      - "--smtp-pwd-secret"
+      - "smtp_password"
+      - "--smtp-from"
+      - "{{ args.smtpfrom }}"
+      - "--direct-up-reseller-wsid"
+      - "{{ args.untillpayments.direct_reseller_wsid }}"
+      - "--adyen-username"
+      - "{{ args.adyen.username }}"
+      - "--adyen-pwd-secret"
+      - "{{ args.adyen.password_secret }}"
+      - "--adyen-api-key-secret"
+      - "{{ args.adyen.api_key_secret }}"
+      - "--adyen-legal-entity-management-api-url"
+      - "{{ args.adyen.legal_entity_management_api_url }}"
+      - "--adyen-configuration-api-url"
+      - "{{ args.adyen.configuration_api_url }}"
+      - "--adyen-terminal-api-url"
+      - "{{ args.adyen.terminal_api_url }}"
+      - "--adyen-terminal-api-key-secret"
+      - "{{ args.adyen.terminal_api_key_secret }}"
+      - "--adyen-management-api-url"
+      - "{{ args.adyen.management_api_url }}"
+      - "--up-email-for-direct-customers"
+      - "{{ args.untillpayments.email_for_direct_customers }}"
+      - "--adyen-untill-balance-acct"
+      - "{{ args.untillpayments.balance_account }}"
+      - "--adyen-onboarding-theme"
+      - "{{ args.adyen.onboarding_theme }}"
+      - "--adyen-checkout-api-url"
+      - "{{ args.adyen.checkout_api_url }}"
+      - "--adyen-transfer-api-url"
+      - "{{ args.adyen.transfer_api_url }}"
+      - "--adyen-agent-wsid"
+      - "{{ args.adyen.agent_wsid }}"
+      - "--adyen-report-username"
+      - "{{ args.adyen.report_username }}"
+      - "--adyen-report-pwd-secret"
+      - "{{ args.adyen.report_pwd_secret }}"
+      - "--adyen-tap-2-pay-api-url"
+      - "{{ args.adyen.tap_2_pay_api_url }}"
+    deploy:
+      labels:
+        - "swarm-sync.managed=true"
+        - "swarm-sync.image-pattern={{ image.tag_pattern }}"
+      restart_policy:
+        condition: on-failure
+        window: 120s
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.AppNode == true
+      resources:
+        reservations:
+          memory: 128M
+    secrets:
+      - smtp_password
+      - chargebee_key
+      - secretKeyJWT
+      - {{ args.adyen.password_secret }}
+      - {{ args.adyen.api_key_secret }}
+      - {{ args.adyen.terminal_api_key_secret }}
+      - {{ args.adyen.report_pwd_secret }}
+networks:
+  host:
+    external: true
+secrets:
+  smtp_password: 
+    external: true
+  chargebee_key:
+    external: true
+  secretKeyJWT:
+    external: true
+  {{ args.adyen.password_secret }}:
+    external: true
+  {{ args.adyen.api_key_secret }}:
+    external: true
+  {{ args.adyen.terminal_api_key_secret }}:
+    external: true
+  {{ args.adyen.report_pwd_secret }}:
+    external: true
+                            	
