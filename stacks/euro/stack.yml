@@ -3,7 +3,7 @@ packs:
   - pack: bp3-euro
     values:
       image:
-        repository: untillpro/airs-bp
+        repository: ivvorg/airs-bp
         tag: v0.202405130306.1
         auto: true
       router:
@@ -47,28 +47,28 @@ packs:
   - pack: backoffice2-euro
     values:
       image:
-        repository: untillpro/airc-backoffice2
+        repository: ivvorg/airc-backoffice2
         tag: v0.202405130311.1
         auto: true
       created: 202305141318
   - pack: resellerportal-euro
     values:
       image:
-        repository: untillpro/resellerportal-web
+        repository: ivvorg/resellerportal-web
         tag: v0.202405130357.1
         auto: true
       created: 202305141332
   - pack: paymentsportal-euro
     values:
       image:
-        repository: untillpro/paymentsportal-web
+        repository: ivvorg/paymentsportal-web
         tag: v0.202405130359.1
         auto: true
       created: 202305141323
   - pack: deeplink-euro
     values:
       image:
-        repository: untillpro/deeplink
+        repository: ivvorg/deeplink
         tag: release
         auto: true
       created: 202401041325

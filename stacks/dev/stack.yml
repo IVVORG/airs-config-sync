@@ -3,7 +3,7 @@ packs:
   - pack: bp3-alpha
     values:
       image:
-        repository: untillpro/airs-bp
+        repository: ivvorg/airs-bp
         tag: alpha
         auto: true
       router:
@@ -47,28 +47,28 @@ packs:
   - pack: backoffice2
     values:
       image:
-        repository: untillpro/airc-backoffice2
+        repository: ivvorg/airc-backoffice2
         tag: alpha
         auto: true
       created: 202405171015
   - pack: resellerportal
     values:
       image:
-        repository: untillpro/resellerportal-web
+        repository: ivvorg/resellerportal-web
         tag: alpha
         auto: true
       created: 202405161152
   - pack: paymentsportal
     values:
       image:
-        repository: untillpro/paymentsportal-web
+        repository: ivvorg/paymentsportal-web
         tag: alpha
         auto: true
       created: 202405161153
   - pack: deeplink
     values:
       image:
-        repository: untillpro/deeplink
+        repository: ivvorg/deeplink
         tag: alpha
         auto: true
       created: 202403201401
