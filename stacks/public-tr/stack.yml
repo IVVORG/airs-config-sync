@@ -64,7 +64,7 @@ packs:
         repository: ivvorg/public-test-repo
         tag: rc
         auto: true
-      created: repo:
+      created: 202405161613
   - pack: paymentsportal-euro
     values:
       image:
